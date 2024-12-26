@@ -65,7 +65,7 @@ export default function Brands() {
                 <h2 className="text-4xl font-medium text-Success mb-10 text-center">All Brands</h2>
             </header>
             <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 gap-5">
-                {data.data.data.map((product) => <div role="button" key={product._id} onClick={() => {
+                {data.data.data.map((product) => <div tabIndex={2} role="button" key={product._id} onClick={() => {
                     setIsClick(true)
                     getSpecificBrands(product._id)
                 }} className="col-span-3 shadow-lg main-shadow transition-[box-shadow,transform] duration-500 h-60 border hover:-translate-y-3 border-1 rounded-sm border-solid border-[b1b1b1]">

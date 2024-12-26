@@ -93,32 +93,32 @@ export default function Navbar() {
                     </li>
                 </ul> : ""}
                 <div className="flex lg:ms-auto gap-6">
-
-                    <ul className="flex gap-4">
-                        {
-                            token ? "" : <div className="flex gap-2 md:gap-4">
-                                <li>
-                                    <NavLink tabIndex={1} className={({ isActive }) => {
-                                        return `relative font-semibold text-base hover:text-black hover:before:w-full before:transition-[width] before:duration-300 
+                    {
+                        token ? "" : <ul className="flex gap-2 md:gap-4">
+                            <li>
+                                <NavLink tabIndex={1} className={({ isActive }) => {
+                                    return `relative font-semibold text-base hover:text-black hover:before:w-full before:transition-[width] before:duration-300 
                                 before:absolute before:left-0 before:-bottom-1 text-nowrap before:h-[2px] before:bg-Success
                                 ${isActive ? "before:w-full text-black" : "before:w-0 text-slate-700"}`
-                                    }} to={"/auth/Login"}>Login</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink tabIndex={1} className={({ isActive }) => {
-                                        return `relative font-semibold text-base hover:text-black hover:before:w-full before:transition-[width] before:duration-300 
+                                }} to={"/auth/Login"}>Login</NavLink>
+                            </li>
+                            <li>
+                                <NavLink tabIndex={1} className={({ isActive }) => {
+                                    return `relative font-semibold text-base hover:text-black hover:before:w-full before:transition-[width] before:duration-300 
                                 before:absolute before:left-0 before:-bottom-1 text-nowrap before:h-[2px] before:bg-Success
                                 ${isActive ? "before:w-full text-black" : "before:w-0 text-slate-700"}`
-                                    }} to={"/auth/Signup"}>Sign up</NavLink>
-                                </li>
-                            </div>
-                        }
-                        {
-                            token ? <li role="button" onClick={logout} className="pe-3 lg:pe-0">
+                                }} to={"/auth/Signup"}>Sign up</NavLink>
+                            </li>
+                        </ul>
+                    }
+                    {
+                        token ? <ul className="flex gap-2 md:gap-4">
+                            <li role="button" onClick={logout} className="pe-3 lg:pe-0">
                                 <Link tabIndex={1} className="flex justify-center items-center gap-2 font-semibold group text-slate-700 text-nowrap"><span className="group-hover:text-black transition-colors duration-300 hidden lg:inline">Logout</span><i className="fa-solid fa-right-from-bracket text-2xl group-hover:text-black transition-colors duration-300"></i></Link>
-                            </li> : ""
-                        }
-                    </ul>
+                            </li>
+                        </ul> : ""
+                    }
+
                 </div>
             </div>
         </nav>

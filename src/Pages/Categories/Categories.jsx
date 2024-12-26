@@ -33,7 +33,7 @@ export default function Categories() {
             <h2 className="text-3xl text-Success text-center font-medium mb-7">All Categories</h2>
             </header>
             <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 gap-5">
-                {isLoading ? <div className="col-span-12"><Loading /></div> : data.data.data.map((category) => <div key={category._id}
+                {isLoading ? <div className="col-span-12"><Loading /></div> : data.data.data.map((category) => <div key={category._id} tabIndex={2}
                     className="col-span-3 w-[85%] hover:-translate-y-3 mx-auto md:mx-0 md:w-full shadow-lg main-shadow transition-[box-shadow,transform] duration-300 h-96 overflow-hidden border border-1 rounded-md border-solid border-[b1b1b1]">
                     <Link to={`/Category/${category._id}`}>
                     <figure className="h-[88%]">

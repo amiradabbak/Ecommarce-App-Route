@@ -27,7 +27,7 @@ export default function CategorySlider() {
             <header>
                 <h2 className="font-semibold mb-2">Shop Popular Categories</h2>
             </header>
-            <Swiper loop={true} autoplay={true} slidesPerView={1} breakpoints={{
+            <Swiper loop={false} autoplay={true} slidesPerView={1} breakpoints={{
                 400: {
                     slidesPerView: 2
                 },
@@ -44,7 +44,7 @@ export default function CategorySlider() {
                     slidesPerView: 6
                 },
             }}>
-                {data.data.data.map((category) => <SwiperSlide key={category._id}>
+                {data.data.data.map((category) => <SwiperSlide key={category._id} tabIndex={2}>
                     <Link to={`/Category/${category._id}`}>
                         <figure>
                             <img src={category.image} className="w-full aspect-square object-cover" alt={category.name} />

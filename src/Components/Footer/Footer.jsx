@@ -21,7 +21,7 @@ export default function Footer() {
                         <div className="mb-3">
                             <span className="text-xl">Payment Partners</span>
                         </div>
-                        <figure className="flex flex-wrap gap-4 items-center select-none">
+                        <figure className="flex flex-wrap gap-4 items-center ">
                             <img src={AmazonPay} alt="Amazone pay" className="w-16" />
                             <img src={AmericanExpress} alt="American express" className="w-16" />
                             <img src={MasterCard} alt="Master card" className="w-16" />
@@ -29,7 +29,7 @@ export default function Footer() {
                         </figure>
                         <div className="ms-0 md:ms-auto flex gap-2 items-center ">
                             <span className="text-lg">Get deliveries with FreshCart</span>
-                            <figure className="flex flex-col lg:flex-row gap-1 items-center select-none">
+                            <figure className="flex flex-col lg:flex-row gap-1 items-center">
                                 <img src={GooglePlay} alt="Googleplay link FreshCart" className="w-28" />
                                 <img src={AppleStore} alt="Apple store link FreshCart" className="w-28" />
                             </figure>

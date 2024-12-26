@@ -86,18 +86,18 @@ export default function Login() {
             <fieldset>
                 <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
                     <div>
-                        <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                        <input tabIndex={2} type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
                             name="email" value={Formik.values.email} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
                         {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.email}</div> : ""}
                     </div>
                     <div className="relative">
-                        <input type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
+                        <input tabIndex={2} type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
                             name="password" value={Formik.values.password} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
-                        <div className="absolute top-2 right-2 " onClick={(e) => {
+                        <div tabIndex={2} role="button" aria-label="Show or hide password" className="absolute top-2 right-2 " onClick={(e) => {
                             toogleEye(e)
                         }}>
                             <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
@@ -106,8 +106,8 @@ export default function Login() {
                     </div>
                     {errorRespose !== null ? <div className="text-red-600 text-sm font-semibold flex items-center">* {errorRespose}</div> : ""}
                     <div className="flex flex-col items-start mt-2" style={{ margin: 0 }}>
-                        <Link to="/auth/ForgotPassword" className="ms-auto flex items-center"><span className="text-gray-400 font-semibold text-xs">Forgot your password?</span></Link>
-                        <button type="submit" className="btn-success uppercase mt-1">login</button>
+                        <Link tabIndex={2} to="/auth/ForgotPassword" className="ms-auto flex items-center"><span className="text-gray-400 font-semibold text-xs">Forgot your password?</span></Link>
+                        <button tabIndex={2} type="submit" className="btn-success uppercase mt-1">login</button>
                     </div>
                 </form>
             </fieldset>
