@@ -44,9 +44,9 @@ export default function ProductCard({ productDetails }) {
             <div className="px-3 pb-3 w-full">
                 <div className="text-sm font-sans font-semibold flex justify-between">
                     <div className="flex gap-2">
-                        <span className={`${priceAfterDiscount > 0 ? "PreDiscount text-opacity-50 pt-1" : null}}`}>{price} EGP</span>
+                        <span className={`${priceAfterDiscount > 0 ? "PreDiscount text-opacity-50 text-black" : " text-Success"}`}>{price} {priceAfterDiscount > 0 ? "" : "EGP"}</span>
                         {
-                            priceAfterDiscount > 0 ? <span>{priceAfterDiscount} EGP</span> : null}
+                            priceAfterDiscount > 0 ? <span className="text-Success">{priceAfterDiscount} {priceAfterDiscount > 0 ? "EGP" : ""} </span> : null}
                     </div>
                     <div className="flex items-center gap-1">
                         <i className="fa-solid fa-star text-yellow-500"></i>

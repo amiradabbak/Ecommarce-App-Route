@@ -76,8 +76,8 @@ export default function ProductDetails() {
                 <Helmet>
                     <title>{productDetails.title}</title>
                 </Helmet>
-                <div className="grid gap-5 grid-cols-3 sm:grid-cols-6 md:grid-cols-12 shadow-lg p-5 ">
-                    <figure className="col-span-5 imageSlider shadow-md ">
+                <div className="grid gap-5 grid-cols-12 shadow-lg p-5 ">
+                    <figure className="col-span-12 md:col-span-5 imageSlider shadow-md ">
                         <ReactImageGallery showPlayButton={false} showNav={false} showFullscreenButton={false} items={productDetails.images.map((image) => {
                             return {
                                 original: image,
@@ -86,7 +86,7 @@ export default function ProductDetails() {
                             }
                         })} />
                     </figure>
-                    <article className="col-span-7 relative">
+                    <article className="col-span-12 md:col-span-7 relative">
                         <header>
                             <h3 className="text-3xl text-black font-medium leading-7 mt-2">{productDetails.title}</h3>
                             <h2 className="text-Success font-semibold mx-1 mt-1">{productDetails.subcategory[0].name}</h2>
@@ -96,11 +96,11 @@ export default function ProductDetails() {
                             <span className="text-sm font-semibold text-[#656565] ">{productDetails.ratingsAverage}</span>
                             <span className="text-sm font-semibold text-[#656565]  ms-3">{productDetails.ratingsQuantity} Review</span>
                             <span className="text-sm font-semibold text-[#656565] ms-3">{productDetails.sold} Sold</span>
-                            <pre className="text-sm font-extrabold text-[#656565] ms-3">Updated on {dateFromAPI(productDetails.updatedAt)["Year/Month/Day"]} {dateFromAPI(productDetails.updatedAt)["Hours:Minutes:Seconds"]}</pre>
                         </div>
+                        <pre className="text-sm font-extrabold text-[#656565] ms-1">Updated on {dateFromAPI(productDetails.updatedAt)["Year/Month/Day"]} {dateFromAPI(productDetails.updatedAt)["Hours:Minutes:Seconds"]}</pre>
                         <div className="mt-2 flex gap-2 items-center">
-                            <span className={`text-xl text-black font-semibold  ${productDetails.priceAfterDiscount > 0 ? "PreDiscount text-opacity-50 pt-1" : null}`}>{productDetails.price} EGP </span>
-                            {productDetails.priceAfterDiscount > 0 ? <span className="text-xl text-black font-semibold">
+                            <span className={`text-xl font-semibold ${productDetails.priceAfterDiscount > 0 ? "PreDiscount text-opacity-50 text-black pt-1" : "text-Success"}`}>{productDetails.price} EGP </span>
+                            {productDetails.priceAfterDiscount > 0 ? <span className="text-xl text-Success font-semibold">
                                 {productDetails.priceAfterDiscount} EGP
                             </span> : null}
                         </div>
@@ -113,7 +113,7 @@ export default function ProductDetails() {
                         </figure>
                         <span className="text-3xl text-black font-semibold">Description</span>
                         <p className="text-slate-500 font-semibold text-base mt-1">{productDetails.description}</p>
-                        <div className="absolute bottom-0  flex gap-3 w-full p-4 flex-col ">
+                        <div className="flex gap-3 w-full p-4 flex-col ">
                             <p className="text-black font-semibold text-lg self-end px-1">In stock : <span className="text-sm font-bold">{productDetails.quantity} Pcs</span></p>
                             {
                                 productDetails.quantity === 0 ? <div className="w-full p-3 bg-red-400 text-lg text-center font-bold text-white rounded-md">

@@ -45,7 +45,7 @@ export default function CategorySlider() {
                 },
             }}>
                 {data.data.data.map((category) => <SwiperSlide key={category._id}>
-                    <Link to={`Category/${category._id}`}>
+                    <Link to={`/Category/${category._id}`}>
                         <figure>
                             <img src={category.image} className="w-full aspect-square object-cover" alt={category.name} />
                         </figure>
@@ -53,6 +53,6 @@ export default function CategorySlider() {
                     <h3 className="text-xs font-semibold  text-gray-800 text-center mt-2">{category.name}</h3>
                 </SwiperSlide>)}
             </Swiper>
-        </section> : <Loading/>}
+        </section> : <Loading />}
     </section>
 }
