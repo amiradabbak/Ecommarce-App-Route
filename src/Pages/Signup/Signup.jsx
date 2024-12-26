@@ -97,32 +97,32 @@ export default function Signup() {
             <fieldset>
             <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
                 <div>
-                    <input type="text" autoComplete="on" placeholder="Username" className="form-control w-full"
+                    <input tabIndex={2} type="text" autoComplete="on" placeholder="Username" className="form-control w-full"
                         name="name" value={Formik.values.name} onChange={Formik.handleChange}
                         onBlur={Formik.handleBlur}
                     />
                     {Formik.errors.name && Formik.touched.name ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.name}</div> : ""}
                 </div>
                 <div>
-                    <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                    <input tabIndex={2} type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
                         name="email" value={Formik.values.email} onChange={Formik.handleChange}
                         onBlur={Formik.handleBlur}
                     />
                     {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.email}</div> : ""}
                 </div>
                 <div>
-                    <input type="tel" autoComplete="on" placeholder="Phone" className="form-control w-full"
+                    <input tabIndex={2} type="tel" autoComplete="on" placeholder="Phone" className="form-control w-full"
                         name="phone" value={Formik.values.phone} onChange={Formik.handleChange}
                         onBlur={Formik.handleBlur}
                     />
                     {Formik.errors.phone && Formik.touched.phone ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.phone}</div> : ""}
                 </div>
                 <div className="relative">
-                    <input type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
+                    <input tabIndex={2} type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
                         name="password" value={Formik.values.password} onChange={Formik.handleChange}
                         onBlur={Formik.handleBlur}
                     />
-                    <div role="button" className="absolute top-2 right-2 " onClick={(e) => {
+                    <div tabIndex={2} role="button" aria-label="Show or hide password" className="absolute top-2 right-2 " onClick={(e) => {
                         toogleEyePassword(e)
                     }}>
                         <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
@@ -130,18 +130,18 @@ export default function Signup() {
                     {Formik.errors.password && Formik.touched.password ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.password}</div> : ""}
                 </div>
                 <div className="relative">
-                    <input type="password" placeholder="Password" className="form-control w-full"
+                    <input tabIndex={2} type="password" placeholder="Password" className="form-control w-full"
                         name="rePassword" value={Formik.values.rePassword} onChange={Formik.handleChange}
                         onBlur={Formik.handleBlur}
                     />
-                    <div role="button" className="absolute top-2 right-2 " onClick={(e) => {
+                    <div tabIndex={2} role="button" aria-label="Show or hide password" className="absolute top-2 right-2 " onClick={(e) => {
                         toogleEyeRePassword(e)
                     }}>
                         <i className={IsShowRePassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
                     </div>
                     {Formik.errors.rePassword && Formik.touched.rePassword ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.rePassword}</div> : ""}
                 </div>
-                <button type="submit" className="btn-success uppercase">Sign Up</button>
+                <button tabIndex={2} type="submit" className="btn-success uppercase">Sign Up</button>
             </form>
             </fieldset>
         </section>

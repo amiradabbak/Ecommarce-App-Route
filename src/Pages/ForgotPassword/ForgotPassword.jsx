@@ -64,14 +64,14 @@ export default function ForgotPassword() {
             <fieldset>
                 <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
                     <div>
-                        <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                        <input tabIndex={2} type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
                             name="email" value={Formik.values.email} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
                         {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex ">* {Formik.errors.email}</div> : ""}
                     </div>
                     <div className="flex flex-col items-start mt-2" style={{ margin: 0 }}>
-                        <button type="submit" className="btn-success uppercase mt-2">Send</button>
+                        <button tabIndex={2} type="submit" className="btn-success uppercase mt-2">Send</button>
                     </div>
                 </form>
             </fieldset>

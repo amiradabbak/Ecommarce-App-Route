@@ -65,14 +65,14 @@ export default function ResetCode() {
             <fieldset>
                 <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
                     <div>
-                        <input type="tel" inputMode="numeric" autoComplete="off" placeholder="Ververify code" className="form-control w-full" maxLength="6"
+                        <input tabIndex={2} type="tel" inputMode="numeric" autoComplete="off" placeholder="Ververify code" className="form-control w-full" maxLength="6"
                             name="resetCode" value={Formik.values.resetCode} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
                         <div className="text-red-600 text-sm font-semibold flex items-center">{Formik.errors.resetCode && Formik.touched.resetCode ? "* " + Formik.errors.resetCode : ""} </div>
                     </div>
                     <div className="mt-2" style={{ margin: 0 }}>
-                        <button type="submit" className="btn-success uppercase mt-1">Send</button>
+                        <button tabIndex={2} type="submit" className="btn-success uppercase mt-1">Send</button>
                     </div>
                 </form>
             </fieldset>

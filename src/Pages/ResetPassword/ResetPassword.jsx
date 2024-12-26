@@ -82,18 +82,18 @@ export default function ResetPassword() {
             <fieldset>
                 <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
                     <div>
-                        <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                        <input tabIndex={2} type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
                             name="email" value={Formik.values.email} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
                         {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.email}</div> : ""}
                     </div>
                     <div className="relative">
-                        <input type="password" autoComplete="on" placeholder="New password" className="form-control w-full"
+                        <input tabIndex={2} type="password" autoComplete="on" placeholder="New password" className="form-control w-full"
                             name="newPassword" value={Formik.values.newPassword} onChange={Formik.handleChange}
                             onBlur={Formik.handleBlur}
                         />
-                        <div role="button" className="absolute top-2 right-2 " onClick={(e) => {
+                        <div tabIndex={2} role="button" aria-label="Show or hide password" className="absolute top-2 right-2 " onClick={(e) => {
                             toogleEye(e)
                         }}>
                             <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
@@ -102,7 +102,7 @@ export default function ResetPassword() {
                     </div>
                     {errorRespose !== null ? <div className="text-red-600 text-sm font-semibold flex items-center">* {errorRespose}</div> : ""}
                     <div className="flex flex-col items-start">
-                        <button type="submit" className="btn-success uppercase mt-1">Save</button>
+                        <button tabIndex={2} type="submit" className="btn-success uppercase mt-1">Save</button>
                     </div>
                 </form>
             </fieldset>
