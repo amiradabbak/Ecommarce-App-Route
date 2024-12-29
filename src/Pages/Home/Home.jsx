@@ -32,17 +32,24 @@ export default function Home() {
         getWishlistUser()
     }, [isFetching])
     if (isLoading) return <Loading />
-    return <>
+
+  
+
+    return (
+      <>
         <Helmet>
-            <title>Home</title>
-            <meta name="description" content="Freshcart home page" />
+          <title>Home</title>
+          <meta name="description" content="Freshcart home page" />
         </Helmet>
-        <HomeSlider />
+        
         <CategorySlider />
-        <div className="grid grid-cols-12 gap-4">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {data.data.data.map((product) => (
-                <ProductCard productDetails={product} key={product._id} />
+              <ProductCard productDetails={product} key={product._id} />
             ))}
+          </div>
         </div>
-    </>
-}
+      </>
+    );
+  }

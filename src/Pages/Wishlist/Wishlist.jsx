@@ -57,7 +57,7 @@ export default function Wishlist() {
                 <h2 className="font-semibold text-lg text-center">Oops! your wishlist is empty.</h2>
                 <h3 className="font-semibold text-sm text-center">Start shopping now by clicking the button below and find something you love!</h3>
             </header>
-            <Link className="btn-success block w-fit font-semibold" to={"/Freashcart"}>Back to Home</Link>
+            <Link className="btn-success block w-fit font-semibold" to={"/Freshcart"}>Back to Home</Link>
         </section> : <Loading />}
     </>
 }

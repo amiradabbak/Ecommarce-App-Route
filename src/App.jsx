@@ -20,7 +20,7 @@ import Wishlist from './Pages/Wishlist/Wishlist'
 import WishlistProvider from './Context/WishList.context'
 import Offline from './Components/Offline/Offline'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 import Brands from './Pages/Brands/Brands'
 import Categories from './Pages/Categories/Categories'
 import Products from './Pages/Products/Products'
@@ -35,7 +35,7 @@ export default function App() {
     children: [
       {
         index: true,
-        path: "Freashcart",
+        path: "Freshcart",
         element: <Home />
       },
       {
@@ -139,7 +139,7 @@ export default function App() {
           }
         }} />
       </Offline>
-      <ReactQueryDevtools initialIsOpen={false} />
+  
     </QueryClientProvider>
   </>
 }

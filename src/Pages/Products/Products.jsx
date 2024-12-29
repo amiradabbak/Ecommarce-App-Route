@@ -1,80 +1,68 @@
-import { useQuery } from "@tanstack/react-query"
-import ProductCard from "../../Components/Card/ProductCard"
-import axios from "axios"
-import Loading from "../../Components/Loading/Loading"
-import { Helmet } from "react-helmet"
-import { useContext, useEffect, useState } from "react"
-import LoadingBase from "../../Components/LoadingBase/LoadingBase"
-import { WishListContext } from "../../Context/WishList.context"
-export default function Products() {
-    //? My variables
-    let [listProduct, setListProduct] = useState(null)
-    let [pageNumber, setPageNumber] = useState(1)
-    const { getWishlistUser } = useContext(WishListContext)
-    //! Get all products 
-    async function getProducts() {
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Loading from "../../Components/Loading/Loading";
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+
+export default function Categories() {
+    //! Get all categories 
+    async function getCategories() {
         const options = {
-            url: `https://ecommerce.routemisr.com/api/v1/products?page=${pageNumber}`,
+            url: `https://ecommerce.routemisr.com/api/v1/categories`,
             method: "GET"
         }
         return await axios.request(options)
     }
-    let { data, isLoading, refetch, isFetching } = useQuery({
-        queryKey: ["Products"],
-        queryFn: getProducts,
+    let { data, isLoading } = useQuery({
+        queryKey: ["Categories"],
+        queryFn: getCategories,
         refetchOnMount: false,
         staleTime: 1 * 60 * 60 * 1000,
         retry: 3,
         refetchInterval: 5 * 60 * 1000,
-        gcTime: 0,
+        gcTime: 5 * 60 * 1000,
     })
-    //! My useEffect 
-    useEffect(() => {
-        getWishlistUser()
-    }, [])
-    useEffect(() => {
-        !isLoading ? setListProduct(data.data.data) : null
-    }, [data])
-    useEffect(() => {
-        refetch()
-    }, [pageNumber])
     return <>
         <Helmet>
-            <title>
-                Products
-            </title>
-            <meta name="description" content="products page explore products" />
+            <title>Categories</title>
+            <meta name="description" content="Freshcart categories page explore all categories" />
         </Helmet>
         <section>
             <header>
-                <h2 className="mb-5 text-Success text-3xl font-medium text-center">All Products</h2>
+                <h2 className="text-3xl text-Success text-center font-medium mb-7">All Categories</h2>
             </header>
-            <div className="grid grid-cols-12 gap-4 min-h-96">
-                {
-                    listProduct === null ? <div className="col-span-12"><Loading /></div> : <>
-                        <div className="col-span-12 mb-3">
-                            <div className="flex gap-3 justify-end items-start mb-2">
-                                {data ? data.data.metadata.prevPage ? <button onClick={() => {
-                                    setPageNumber(data.data.metadata.prevPage ? data.data.metadata.prevPage : null)
-                                }} type="button"
-                                    className="btn-success bg-yellow-500 hover:bg-yellow-600 px-6">Previous page</button> : null : null}
-                                {data ? data.data.metadata.nextPage ? <button onClick={() => {
-                                    setPageNumber(data.data.metadata.nextPage ? data.data.metadata.nextPage : null)
-                                }} type="button" className="btn-success px-6">Next page</button> : null : null}
+            <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {isLoading ? (
+                        <div className="col-span-full">
+                            <Loading />
+                        </div>
+                    ) : (
+                        data.data.data.map((category) => (
+                            <div
+                                key={category._id}
+                                tabIndex={2}
+                                className="hover:-translate-y-3 shadow-lg main-shadow transition-[box-shadow,transform] duration-300 h-96 overflow-hidden border border-1 rounded-md border-solid border-[#b1b1b1]"
+                            >
+                                <Link to={`/Category/${category._id}`}>
+                                    <figure className="h-[88%]">
+                                        <img
+                                            className="w-full aspect-square object-cover h-full"
+                                            src={category.image}
+                                            alt={category.name}
+                                        />
+                                    </figure>
+                                    <div className="h-[12%] flex items-center justify-center">
+                                        <h3 className="text-Success text-lg font-semibold">
+                                            {category.name}
+                                        </h3>
+                                    </div>
+                                </Link>
                             </div>
-                            <input onChange={(e) => {
-                                setListProduct(data.data.data.filter((product) => {
-                                    return product.title.toLowerCase().includes(e.target.value.toLowerCase())
-                                }));
-
-
-                            }} type="search" placeholder="Search..." className="form-control w-full" /></div>
-                        {listProduct.map((product) => (
-                            <ProductCard productDetails={product} key={product._id} />
-                        ))}</>
-                }
+                        ))
+                    )}
+                </div>
             </div>
         </section>
-        {data && isFetching ? <LoadingBase /> : null}
-    </>
+    </>;
 }

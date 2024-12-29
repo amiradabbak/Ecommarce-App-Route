@@ -1,59 +1,82 @@
-import { useContext, useEffect, useState } from "react"
-import { CartContext } from "../../Context/Cart.context"
-import { Link } from "react-router-dom"
-import { WishListContext } from "../../Context/WishList.context"
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../Context/Cart.context";
+import { Link } from "react-router-dom";
+import { WishListContext } from "../../Context/WishList.context";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
+
 export default function ProductCard({ productDetails }) {
-    //! My varibles 
-    const { images, title, price, ratingsAverage, category, _id, priceAfterDiscount } = productDetails
-    const { addProductToCart } = useContext(CartContext)
-    const { addProductToWishlist, removeItemWishList, favouriteItems } = useContext(WishListContext)
-    const [favHeart, setFavHeart] = useState(null)
-    //! My useEffect 
-    useEffect(() => {
-        favouriteItems ? setFavHeart(favouriteItems) : null
-    }, [])
-    return <>
-        <section tabIndex={2} className="col-span-12 relative group sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 overflow-hidden main-shadow rounded-lg flex flex-wrap hover:-translate-y-3 shadow-lg transition-[transform,box-shadow] duration-300 ease-in-out delay-[0s,10ms]">
-            <figure className="relative w-full">
-                <img className="w-full min-h-[255px] object-cover" src={images[0]} alt={title} />
-                <div className="w-full h-full absolute top-0 bottom-0 bg-black bg-opacity-15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex justify-center items-center gap-2">
-                    <div tabIndex={2} role="button" onClick={function () {
-                        favHeart ? favHeart.includes(_id) ? removeItemWishList(_id) : addProductToWishlist({ productId: _id }) : null
-                        favHeart ? favHeart.includes(_id) ? setFavHeart(favHeart.filter((element, index) => {
-                            return index !== favHeart.indexOf(_id)
-                        })) : setFavHeart([favHeart.filter((element) => {
-                            return element
-                        }), _id]) : null
-                    }} className="w-10 cursor-pointer h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success flex justify-center items-center">
-                        <i className={`fa-solid fa-heart ${favHeart ? favHeart.includes(_id) ? "text-red-600" : "text-white" : ""}`}></i>
-                    </div>
-                    <div tabIndex={2} role="button" onClick={() => {
-                        addProductToCart({ productId: _id })
-                    }} className="w-10 cursor-pointer h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success text-white flex justify-center items-center">
-                        <i className="fa-solid fa-cart-shopping"></i>
-                    </div>
-                    <Link role="button" tabIndex={2} to={`/product/${_id}`} className="w-10 h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success text-white flex justify-center items-center">
-                        <i className="fa-solid fa-eye"></i>
-                    </Link>
-                </div>
-            </figure>
-            <div className="mt-2 mb-1 px-3 -space-y-2">
-                <h3 className="text-Success font-sans text-base font-medium">{category.name}</h3>
-                <h2 className="text-xl font-sans line-clamp-2 h-14">{title}</h2>
+  const { images, title, price, ratingsAverage, category, _id, priceAfterDiscount } = productDetails;
+  const { addProductToCart } = useContext(CartContext);
+  const { addProductToWishlist, removeItemWishList, favouriteItems } = useContext(WishListContext);
+  const [favHeart, setFavHeart] = useState(null);
+
+  useEffect(() => {
+    if (favouriteItems) setFavHeart(favouriteItems);
+  }, [favouriteItems]);
+
+  const handleWishlistToggle = () => {
+    if (favHeart) {
+      if (favHeart.includes(_id)) {
+        removeItemWishList(_id);
+        setFavHeart(favHeart.filter((id) => id !== _id));
+      } else {
+        addProductToWishlist({ productId: _id });
+        setFavHeart([...favHeart, _id]);
+      }
+    }
+  };
+
+  return (
+    <div className="rounded p-2 bg-white transition-all duration-300 border border-gray-200 hover:border-green-500 group">
+      <div className="relative">
+        {/* Cart and Wishlist buttons */}
+        <div className="absolute top-2 left-2 flex flex-col gap-2 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+          <button
+            onClick={() => addProductToCart({ productId: _id })}
+            className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 transition-colors"
+          >
+            <FiShoppingCart size={20} />
+          </button>
+          <button
+            onClick={handleWishlistToggle}
+            className="bg-white p-2 rounded-md hover:bg-gray-100 transition-colors"
+          >
+            <FiHeart 
+              size={20}
+              className={favHeart && favHeart.includes(_id) ? "text-red-500" : "text-gray-400"} 
+            />
+          </button>
+        </div>
+        
+        {/* Product Image */}
+        <img 
+          src={images[0]} 
+          alt={title} 
+          className="w-full h-[200px] object-cover rounded"
+        />
+      </div>
+
+      {/* Product Details */}
+      <div className="mt-3 space-y-2">
+        {/* Category */}
+        <p className="text-green-500 text-sm">{category.name}</p>
+        
+        {/* Title */}
+        <h3 className="text-gray-800 font-medium truncate">{title}</h3>
+        
+        {/* Price and Rating */}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <span className="font-bold">
+              {price} EGP
+            </span>
+            <div className="flex items-center">
+              <span className="text-yellow-400">★</span>
+              <span className="text-sm text-gray-600 ml-1">{ratingsAverage}</span>
             </div>
-            <div className="px-3 pb-3 w-full">
-                <div className="text-sm font-sans font-semibold flex justify-between">
-                    <div className="flex gap-2">
-                        <span className={`${priceAfterDiscount > 0 ? "PreDiscount text-opacity-50 text-black" : " text-Success"}`}>{price} {priceAfterDiscount > 0 ? "" : "EGP"}</span>
-                        {
-                            priceAfterDiscount > 0 ? <span className="text-Success">{priceAfterDiscount} {priceAfterDiscount > 0 ? "EGP" : ""} </span> : null}
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <i className="fa-solid fa-star text-yellow-500"></i>
-                        <span>{ratingsAverage}</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

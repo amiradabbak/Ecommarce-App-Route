@@ -6,7 +6,7 @@ export default function GuestRoute({ children }) {
         const { token } = useContext(UserContext)
         //! Check user sign in before or no 
         if (token) {
-                return <Navigate to={"/Freashcart"} />
+                return <Navigate to={"/Freshcart"} />
         } else {
                 return children;
         }

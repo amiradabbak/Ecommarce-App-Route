@@ -1,43 +1,82 @@
-import { useContext, useEffect } from "react"
-import { CartContext } from "../../Context/Cart.context"
-import Loading from "../../Components/Loading/Loading"
-import CartItem from "../../Components/CartItem/CartItem"
-import { Link } from "react-router-dom"
-import { Helmet } from "react-helmet"
-export default function Cart() {
-    //? My variables
-    let { getUserCart, cartInfo, clearUserCart } = useContext(CartContext)
-    //! My useEffect 
-    useEffect(() => { getUserCart() }, [])
-    return <>
-        <Helmet>
-            <title>Cart</title>
-            <meta name="description" content="Freshcart cart page your pdoructs are ready here" />
-        </Helmet>
-        {cartInfo === null ? <Loading /> : <section>
-            <header className="mb-4 px-4 text-slate-600 flex gap-8">
-                <i className="fa-brands fa-opencart text-3xl"></i>
-                <h2 className="font-semibold text-xl relative before:bg-slate-600 before:absolute before:w-0.5 before:h-3/4 before:-left-1 before:top-1/2 ps-4 before:-translate-y-1/2">Your shopping cart</h2>
-            </header>
-            {cartInfo.numOfCartItems === 0 ? <section className="rounded-md bg-slate-200 p-5 space-y-3 flex flex-col items-center justify-center">
-                <header>
-                    <h2 className="font-semibold text-lg text-center">Oops! your cart is empty.</h2>
-                    <h3 className="font-semibold text-sm text-center">Start shopping now by clicking the button below and find something you love!</h3>
-                </header>
-                <Link className="btn-success block w-fit font-semibold" to={"/Freashcart"}>Back to Home</Link>
-            </section>
-                : <section>
-                    <div className="space-y-3">
-                        {cartInfo.data.products.map((product) => <CartItem productInfo={product} key={product._id} />)}
-                    </div>
-                    <div className="mt-4 flex flex-col md:flex-row items-center justify-between">
-                        <p className="space-x-2"><i className="fa-solid fa-sack-dollar text-Success text-xl"></i><span className="font-semibold text-base">Your total price</span><span className="text-Success font-semibold text-sm">{cartInfo.data.totalCartPrice}</span></p>
-                        <div className="flex flex-col sm:flex-row gap-2 items-center justify-center">
-                            <button type="button" onClick={clearUserCart} className="btn-success px-3 bg-red-500 hover:bg-red-600 text-white text-nowrap"><span><i className="fa-solid fa-trash"></i></span> Delete cart</button>
-                            <Link to={"/Checkout"} className="btn-success text-nowrap">Next step</Link>
-                        </div>
-                    </div>
-                </section>}
-        </section>}
-    </>
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../Context/Cart.context";
+import { Link } from "react-router-dom";
+import { WishListContext } from "../../Context/WishList.context";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
+
+export default function ProductCard({ productDetails }) {
+  const { images, title, price, ratingsAverage, category, _id, priceAfterDiscount } = productDetails;
+  const { addProductToCart } = useContext(CartContext);
+  const { addProductToWishlist, removeItemWishList, favouriteItems } = useContext(WishListContext);
+  const [favHeart, setFavHeart] = useState(null);
+
+  useEffect(() => {
+    if (favouriteItems) setFavHeart(favouriteItems);
+  }, [favouriteItems]);
+
+  const handleWishlistToggle = () => {
+    if (favHeart) {
+      if (favHeart.includes(_id)) {
+        removeItemWishList(_id);
+        setFavHeart(favHeart.filter((id) => id !== _id));
+      } else {
+        addProductToWishlist({ productId: _id });
+        setFavHeart([...favHeart, _id]);
+      }
+    }
+  };
+
+  return (
+    <div className="border border-gray-100 rounded p-2 bg-white hover:shadow-md transition-shadow duration-300">
+      <div className="relative">
+        {/* Cart and Wishlist buttons */}
+        <div className="absolute top-2 left-2 flex flex-col gap-2 z-10">
+          <button
+            onClick={() => addProductToCart({ productId: _id })}
+            className=" text-white p-2 rounded-md hover:bg-green-600 transition-colors"
+          >
+            <FiShoppingCart size={20} />
+          </button>
+          <button
+            onClick={handleWishlistToggle}
+            className="bg-white p-2 rounded-md hover:bg-gray-100 transition-colors"
+          >
+            <FiHeart 
+              size={20}
+              className={favHeart && favHeart.includes(_id) ? "text-red-500" : "text-gray-400"} 
+            />
+          </button>
+        </div>
+        
+        {/* Product Image */}
+        <img 
+          src={images[0]} 
+          alt={title} 
+          className="w-full h-[200px] object-cover rounded"
+        />
+      </div>
+
+      {/* Product Details */}
+      <div className="mt-3 space-y-2">
+        {/* Category */}
+        <p className="text-green-500 text-sm">{category.name}</p>
+        
+        {/* Title */}
+        <h3 className="text-gray-800 font-medium truncate">{title}</h3>
+        
+        {/* Price and Rating */}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <span className="font-bold">
+              {price} EGP
+            </span>
+            <div className="flex items-center">
+              <span className="text-yellow-400">★</span>
+              <span className="text-sm text-gray-600 ml-1">{ratingsAverage}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
